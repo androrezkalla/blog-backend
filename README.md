@@ -14,18 +14,18 @@ This is a CRUD web application for a blogging platform, built using Sequelize, E
 
 Front-end:
 
-React: JavaScript library for building user interfaces.
-React Router: Library for handling routing in React applications.
-Axios: Promise-based HTTP client for making API requests.
+- React: JavaScript library for building user interfaces.
+- React Router: Library for handling routing in React applications.
+- Axios: Promise-based HTTP client for making API requests.
 
 Back-end:
 
-Node.js: JavaScript runtime for server-side development.
-Express.js: Web application framework for Node.js.
-Sequelize: Object-relational mapping (ORM) library for database management.
-PostgreSQL: Relational database management system.
-bcrypt.js: Library for password hashing and verification.
-Express Sessions: Middleware for session management.
+- Node.js: JavaScript runtime for server-side development.
+- Express.js: Web application framework for Node.js.
+- Sequelize: Object-relational mapping (ORM) library for database management.
+- PostgreSQL: Relational database management system.
+- bcrypt.js: Library for password hashing and verification.
+- Express Sessions: Middleware for session management.
 
 ## Run in Postman
 
