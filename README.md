@@ -1,6 +1,6 @@
 # Blog Backend
 
-This is the backend server for a simple blog application. It provides the necessary API endpoints to manage posts and comments.
+This is a CRUD web application for a blogging platform, built using Sequelize, Express.js, and React. The application allows users to register, create posts, leave comments, and perform various CRUD operations on posts and comments. It incorporates user authentication and authorization, with client-side authentication implemented using React.
 
 ## Features
 
@@ -10,6 +10,27 @@ This is the backend server for a simple blog application. It provides the necess
 - Get a list of all posts or comments
 - Get a single post or comment by ID
 
+## Technologies Used:
+
+Front-end:
+
+React: JavaScript library for building user interfaces.
+React Router: Library for handling routing in React applications.
+Axios: Promise-based HTTP client for making API requests.
+
+Back-end:
+
+Node.js: JavaScript runtime for server-side development.
+Express.js: Web application framework for Node.js.
+Sequelize: Object-relational mapping (ORM) library for database management.
+PostgreSQL: Relational database management system.
+bcrypt.js: Library for password hashing and verification.
+Express Sessions: Middleware for session management.
+
+## Run in Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/28379415-fa2f436f-740b-4b4b-a8dc-e1c3e9e5cbb3)
+
 ## Prerequisites
 
 Make sure you have the following installed on your machine:
@@ -17,10 +38,6 @@ Make sure you have the following installed on your machine:
 - Node.js
 - npm (Node Package Manager)
 - PostgreSQL database
-
-## Run in Postmon
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/28379415-fa2f436f-740b-4b4b-a8dc-e1c3e9e5cbb3)
 
 ## Installation
 
