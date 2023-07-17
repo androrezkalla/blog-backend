@@ -18,6 +18,10 @@ Make sure you have the following installed on your machine:
 - npm (Node Package Manager)
 - PostgreSQL database
 
+## Run in Postmon
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/28379415-fa2f436f-740b-4b4b-a8dc-e1c3e9e5cbb3)
+
 ## Installation
 
 To install and set up the Blogging Platform, follow these steps:
@@ -80,10 +84,6 @@ You can use tools like Postman or cURL to interact with the API endpoints. Here 
 - `POST /posts/:postId/comments` - Create a new comment for a specific post
 - `PATCH /comments/:commentId` - Update a comment by ID
 - `DELETE /comments/:commentId` - Delete a comment by ID
-
-Make sure to include the necessary authentication headers for authenticated endpoints.
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/28379415-fa2f436f-740b-4b4b-a8dc-e1c3e9e5cbb3)
 
 ## License
 
