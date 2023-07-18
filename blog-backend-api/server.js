@@ -3,57 +3,57 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const port = 4000;
+const cors = require("cors");
 
-//Import Controller Functions
-const postController = require('./controllers/postController');
-const UserController = require("./controllers/userController");
-const commentController = require("./controllers/commentController");
-const { authenticateUser } = require("./middleware/userAuth");
+const authRouter = require("./routes/auth");
+const postRouter = require("./routes/post");
+const commentRouter = require("./routes/comment");
+const {
+  forbiddenErrorHandler,
+  notFoundErrorHandler,
+} = require("./middleware/errorHandlers");
 
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
 
-app.use(express.json());
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 3600000,
-        },
-    })
+  cors({
+    origin: "http://127.0.0.1:5173",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  })
 );
 
 app.use((req, res, next) => {
-    console.log(`Request: ${req.method} ${req.originalUrl}`);
-    res.on("finish", () => {
-        console.log(`Response Status: ${res.statusCode}`);
-    });
-    next();
+  console.log(`Request: ${req.method} ${req.originalUrl}`);
+  res.on("finish", () => {
+    // the 'finish' event will be emitted when the response is handed over to the OS
+    console.log(`Response Status: ${res.statusCode}`);
+  });
+  next();
 });
+
+app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 3600000,
+    },
+  })
+);
+
+app.use(forbiddenErrorHandler);
+app.use(notFoundErrorHandler);
+
+app.use("/api/auth", authRouter);
+app.use("/api/posts", postRouter);
+app.use("/api/comments", commentRouter);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Blog Backend!");
+  res.send("Welcome to the Blog Backend!");
 });
-
-//Auth Handling
-app.post("/signup", UserController.signup);
-app.post("/login",  UserController.login);
-app.delete("/logout", UserController.logout);
-
-//Post Handling
-app.post("/posts", authenticateUser, postController.createPost);
-app.get("/posts", authenticateUser, postController.getAllPosts);
-app.get("/posts/:postId", authenticateUser,postController.getPostById);
-app.patch("/posts/:postId", authenticateUser,postController.updatePost);
-app.delete("/posts/:postId", authenticateUser, postController.deletePost);
-
-//Comment Handling
-app.get("/comments",  authenticateUser, commentController.getAllComments);
-app.get("/comments/:commentId", authenticateUser, commentController.getCommentById);
-app.get("/posts/:postId/comments", authenticateUser, commentController.getCommentsByPostId);
-app.post("/posts/:postId/comments",  authenticateUser, commentController.createComment);
-app.patch("/comments/:commentId", authenticateUser,  commentController.updateComment);
-app.delete("/comments/:commentId",authenticateUser,  commentController.deleteComment);
