@@ -3,9 +3,10 @@ const router = express.Router();
 const { Comment } = require("../models");
 const bcrypt = require("bcryptjs");
 const { User } = require("../models");
+const { authenticateUser } = require("../middleware/userAuth");
 
 // Create comment
-router.post("/:postId/comments", async (req, res) => {
+router.post("/:postId/comments", authenticateUser, async (req, res) => {
   try {
     const postId = parseInt(req.params.postId, 10);
     const commentContent = req.body.content;
@@ -27,7 +28,7 @@ router.post("/:postId/comments", async (req, res) => {
 });
 
 // Get comments by post ID
-router.get("/:postId/comments", async (req, res) => {
+router.get("/:postId/comments", authenticateUser, async (req, res) => {
   const postId = parseInt(req.params.postId, 10);
   try {
     const allComments = await Comment.findAll({
@@ -46,7 +47,7 @@ router.get("/:postId/comments", async (req, res) => {
 });
 
 // Get all comments
-router.get("/", async (req, res) => {
+router.get("/", authenticateUser, async (req, res) => {
   try {
     const comments = await Comment.findAll({
       include: "User",
@@ -59,7 +60,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get comment by ID
-router.get("/:commentId", async (req, res) => {
+router.get("/:commentId", authenticateUser, async (req, res) => {
   try {
     const { postId, commentId } = req.params;
     const comment = await Comment.findByPk(commentId, { include: "User" });
@@ -75,7 +76,7 @@ router.get("/:commentId", async (req, res) => {
 });
 
 // Update comment
-router.patch("/:commentId", async (req, res) => {
+router.patch("/:commentId", authenticateUser, async (req, res) => {
   try {
     const { commentId } = req.params;
     const { content } = req.body;
@@ -93,7 +94,7 @@ router.patch("/:commentId", async (req, res) => {
 });
 
 // Delete comment
-router.delete("/:commentId", async (req, res) => {
+router.delete("/:commentId", authenticateUser, async (req, res) => {
   try {
     const { commentId } = req.params;
     const comment = await Comment.findByPk(commentId);
